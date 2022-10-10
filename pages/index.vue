@@ -1,7 +1,5 @@
 <template>
-  <div>
-    StartPage
-  </div>
+  <div class="underline">StartPage</div>
 </template>
 <script>
 export default {};
