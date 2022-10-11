@@ -12,6 +12,8 @@
     "nuxt": "3.0.0-rc.11"
   },
   "dependencies": {
-    "@nuxtjs/tailwindcss": "^5.3.5"
+    "@nuxtjs/tailwindcss": "^5.3.5",
+    "primeicons": "^6.0.1",
+    "primevue": "^3.17.0"
   }
 }

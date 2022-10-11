@@ -1,5 +1,5 @@
 <template>
-  <div class="underline">StartPage</div>
+  <div class="underline heading-300">StartPage</div>
 </template>
 <script>
 export default {};

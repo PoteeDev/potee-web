@@ -1,12 +1,16 @@
 <template>
-  <div>Login</div>
+  <div>
+    Login
+  </div>
 </template>
-<script>
+<script lang="ts">
+
 definePageMeta({
   layout: "empty",
 });
 
-export default {};
+export default {
+};
 </script>
 <style lang="">
 </style>
