@@ -22,13 +22,16 @@
 </template>
 <script lang="ts">
 import Button from "primevue/button";
+import { BaseInput, BasePassword } from "@/components/base";
+
+import LogoLarge from "@/components/logo/logo-large.vue";
 
 definePageMeta({
   layout: "empty",
 });
 
 export default defineComponent({
-  components: { Button },
+  components: { Button, LogoLarge, BaseInput, BasePassword },
   setup() {
     const login = ref("");
     const password = ref("");

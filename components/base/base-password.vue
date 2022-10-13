@@ -13,9 +13,12 @@
 </template>
 
 <script lang="ts">
+import PasswordProps from "primevue/password/Password.vue";
 import Password from "primevue/password";
 
-import { defineComponent } from "vue";
+import { useVModel } from "@vueuse/core";
+import { defineComponent, PropType } from "vue";
+
 export default defineComponent({
   components: {
     Password,
@@ -25,9 +28,9 @@ export default defineComponent({
     label: {
       type: String,
     },
-    modelValue: {
-      type: String,
-    },
+    ...(PasswordProps["props"] as {
+      [K in keyof Password["$props"]]: PropType<Password["$props"][K]>;
+    }),
   },
   setup(props, { emit, attrs }) {
     const passwordInputClass = computed(() => {

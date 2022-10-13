@@ -5,7 +5,10 @@ export default defineNuxtConfig({
   alias: {
     'style': fileURLToPath(new URL('./assets/style', import.meta.url)),
   },
-  modules: ['@nuxtjs/tailwindcss','@vueuse/nuxt',],
+  modules: ['@nuxtjs/tailwindcss'],
+  components: {
+    global: false,
+  },
   css: [
     'primevue/resources/primevue.css',
     'primevue/resources/themes/arya-purple/theme.css',
