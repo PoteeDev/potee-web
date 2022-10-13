@@ -11,7 +11,11 @@
 </template>
 
 <script lang="ts">
+import InputText from "primevue/inputtext";
 export default defineComponent({
+  components: {
+    InputText,
+  },
   inheritAttrs: false,
   props: {
     label: {

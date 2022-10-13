@@ -13,8 +13,13 @@
 </template>
 
 <script lang="ts">
+import Password from "primevue/password";
+
 import { defineComponent } from "vue";
 export default defineComponent({
+  components: {
+    Password,
+  },
   inheritAttrs: true,
   props: {
     label: {
