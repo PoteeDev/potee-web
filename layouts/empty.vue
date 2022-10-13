@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <div>Empty</div>
+  <div class="bg-[#1B1B1B]">
     <slot />
   </div>
 </template>

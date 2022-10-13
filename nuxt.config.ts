@@ -5,12 +5,12 @@ export default defineNuxtConfig({
   alias: {
     'style': fileURLToPath(new URL('./assets/style', import.meta.url)),
   },
-  modules: ['@nuxtjs/tailwindcss'],
+  modules: ['@nuxtjs/tailwindcss','@vueuse/nuxt',],
   css: [
-    '@/assets/style/global.css',
-    'primevue/resources/themes/vela-purple/theme.css',
     'primevue/resources/primevue.css',
-    'primeicons/primeicons.css'
+    'primevue/resources/themes/arya-purple/theme.css',
+    'primeicons/primeicons.css',
+    '@/assets/style/global.css',
   ],
   build: {
     transpile: ['primevue']
