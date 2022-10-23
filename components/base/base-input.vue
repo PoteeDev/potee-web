@@ -11,10 +11,8 @@
 </template>
 
 <script lang="ts">
-import InputTextProps from "primevue/inputtext/InputText.vue";
-import InputText from "primevue/inputtext";
 import { useVModel } from "@vueuse/core";
-import { PropType } from "vue";
+import InputText from "primevue/inputtext";
 
 export default defineComponent({
   components: {
@@ -25,9 +23,7 @@ export default defineComponent({
     label: {
       type: String,
     },
-    ...(InputTextProps["props"] as {
-      [K in keyof InputText["$props"]]: PropType<InputText["$props"][K]>;
-    }),
+    modelValue: String,
   },
   setup(props, { emit }) {
     const model = useVModel(props, "modelValue", emit);

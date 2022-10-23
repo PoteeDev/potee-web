@@ -6,6 +6,7 @@
       v-bind="$attrs"
       :inputClass="passwordInputClass"
       toggleMask
+      :inputProps="$attrs"
       type="text"
       v-model="model"
     />
@@ -13,11 +14,10 @@
 </template>
 
 <script lang="ts">
-import PasswordProps from "primevue/password/Password.vue";
 import Password from "primevue/password";
 
 import { useVModel } from "@vueuse/core";
-import { defineComponent, PropType } from "vue";
+import { defineComponent, Prop } from "vue";
 
 export default defineComponent({
   components: {
@@ -28,9 +28,7 @@ export default defineComponent({
     label: {
       type: String,
     },
-    ...(PasswordProps["props"] as {
-      [K in keyof Password["$props"]]: PropType<Password["$props"][K]>;
-    }),
+    modelValue: String,
   },
   setup(props, { emit, attrs }) {
     const passwordInputClass = computed(() => {
