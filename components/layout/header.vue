@@ -1,6 +1,6 @@
 <template>
-  <header class="py-4">
-    <div>
+  <header class="py-4 bg-[#1B1B1B]">
+    <div class="layout-max-width">
       <HeaderIcon />
     </div>
   </header>

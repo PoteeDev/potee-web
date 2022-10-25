@@ -1,3 +1,4 @@
+import axios from "axios";
 import decode from "jwt-decode";
 
 const AUTH_LOCAL_STORAGE_KEY = "AUTH:USER";
@@ -10,7 +11,7 @@ const user: AuthState["user"] = localStorageUser
 const authState = reactive<AuthState>({
   isAuthenticated: !!user,
   user,
-  error: undefined,
+  refreshError: false,
 });
 
 interface DecodeToken {
@@ -26,7 +27,7 @@ interface AuthState {
     accessToken: string;
     refreshToken: string;
   };
-  error?: Error;
+  refreshError: boolean;
 }
 
 interface LoginWithPassword {
@@ -60,33 +61,33 @@ function credentialsResponseSave(credentialsResponse: CredentialsResponse) {
     JSON.stringify(authState.user)
   );
 
+  authState.refreshError = false;
   authState.isAuthenticated = true;
 }
 
 export function useAuth() {
-  const apifetch = $fetch.create({ baseURL: "/api" });
+  const baseAxios = axios.create({ baseURL: "/api" });
 
   async function loginWithPassword(body: LoginWithPassword) {
-    const loginResponse = await apifetch<CredentialsResponse>("/auth/login", {
-      body,
-      method: "POST",
-    });
+    const { data } = await baseAxios.post<CredentialsResponse>(
+      "/auth/login",
+      body
+    );
 
-    credentialsResponseSave(loginResponse);
+    credentialsResponseSave(data);
 
     return authState;
   }
 
   async function refresh() {
-    const refreshResponse = await apifetch<CredentialsResponse>(
+    const { data } = await baseAxios.post<CredentialsResponse>(
       "/auth/refresh",
       {
-        body: { refresh_token: authState.user?.refreshToken },
-        method: "POST",
+        refresh_token: authState.user?.refreshToken,
       }
     );
 
-    credentialsResponseSave(refreshResponse);
+    credentialsResponseSave(data);
 
     return authState;
   }
