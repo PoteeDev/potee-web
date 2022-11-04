@@ -64,6 +64,7 @@ import Ripple from "primevue/ripple";
 
 import LogoLarge from "@/components/logo/logo-large.vue";
 import { FetchError } from "ohmyfetch";
+import { AxiosError } from "axios";
 
 const errors = {
   "invalid credentials":
@@ -98,11 +99,11 @@ export default defineComponent({
         await useRouter().push(`/profile/${authState.user?.id}`);
       } catch (error) {
         if (
-          error instanceof FetchError &&
-          typeof error.data?.datail === "string"
+          error instanceof AxiosError &&
+          typeof error.response?.data?.datail === "string"
         ) {
-          loginError.value = errors[error.data.datail];
-          return;
+          loginError.value = errors[error.response.data.datail];
+          if (loginError.value) return;
         }
         loginError.value = "Ошибка при входе, попробуйте еще раз.";
       }

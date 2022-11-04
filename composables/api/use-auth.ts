@@ -92,7 +92,24 @@ export function useAuth() {
     return authState;
   }
 
-  return { loginWithPassword, authState, refresh };
+  async function logout() {
+    try {
+      await baseAxios.post(
+       "/auth/logout",
+       {}, {headers: {'Authorization': `Bearer ${authState.user?.accessToken}`}}
+     );
+    } catch (error) {
+    }
+
+    window.localStorage.removeItem(AUTH_LOCAL_STORAGE_KEY)
+
+    authState.user = undefined
+    authState.refreshError = false;
+    authState.isAuthenticated = false;
+
+  }
+
+  return { loginWithPassword, authState, refresh, logout };
 }
 
 export function useAuthState() {

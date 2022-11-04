@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col min-h-screen">
+  <div class="flex flex-col min-h-screen bg-[#1B1B1B]">
     <Header />
-    <div class="layout-max-width">
+    <div class="layout-max-width h-full">
       <slot />
     </div>
   </div>
