@@ -24,6 +24,7 @@
       </div>
 
       <div
+        v-if="userScores"
         :class="[
           'grid grid-cols-[repeat(4,_minmax(200px,_1fr))] gap-8',
           { 'mt-10': isShowVpnConfig },
@@ -63,7 +64,7 @@
               </linearGradient>
             </defs>
           </svg>
-          <div class="body-700-true mt-3">{{ userScores?.place }}</div>
+          <div class="body-700-true mt-3">{{ userScores.place }}</div>
           <div class="body-500 text-[#B0B0B0] mt-[1px]">Scoreboard rating</div>
         </div>
         <div class="flex flex-col items-center rounded-lg bg-[#282828] py-5">
@@ -100,7 +101,7 @@
               </linearGradient>
             </defs>
           </svg>
-          <div class="body-700-true mt-3">{{ userScores?.totalScore }}</div>
+          <div class="body-700-true mt-3">{{ userScores.totalScore }}</div>
           <div class="body-500 text-[#B0B0B0] mt-[1px]">Total score</div>
         </div>
         <div class="flex flex-col items-center rounded-lg bg-[#282828] py-5">
@@ -162,7 +163,7 @@
               </linearGradient>
             </defs>
           </svg>
-          <div class="body-700-true mt-3">{{ userScores?.totalGained }}</div>
+          <div class="body-700-true mt-3">{{ userScores.totalGained }}</div>
           <div class="body-500 text-[#B0B0B0] mt-[1px]">Total score</div>
         </div>
         <div class="flex flex-col items-center rounded-lg bg-[#282828] py-5">
@@ -230,7 +231,7 @@
               </linearGradient>
             </defs>
           </svg>
-          <div class="body-700-true mt-3">{{ userScores?.totalLost }}</div>
+          <div class="body-700-true mt-3">{{ userScores.totalLost }}</div>
           <div class="body-500 text-[#B0B0B0] mt-[1px]">Total score</div>
         </div>
       </div>
@@ -239,9 +240,10 @@
 
       <div class="mt-9 flex flex-col">
         <div class="heading-400">Services</div>
-        <div class="grid grid-cols-2 mt-3 gap-4">
+        <div v-if="services.length" class="grid grid-cols-2 mt-3 gap-4">
           <ServiceItem v-for="item in services" :item="item" />
         </div>
+        <div v-else>Список сервисов в данный момент отсутствует.</div>
       </div>
     </main>
   </div>
@@ -307,10 +309,10 @@ interface UserScoresDto {
 }
 
 class UserScores {
-  totalGained: number;
-  totalLost: number;
-  totalScore: number;
-  place: number;
+  totalGained: number | string;
+  totalLost: number | string;
+  totalScore: number | string;
+  place: number | string;
 
   constructor(scores: UserScoresDto) {
     this.totalGained = scores.total_gained;
@@ -347,7 +349,18 @@ export default defineComponent({
         });
 
         user.value = new User(userResponse.data.entity);
+      } catch (error) {
+        if (
+          error instanceof AxiosError &&
+          typeof error.response?.data?.datail === "string"
+        ) {
+          profileError.value = errors[error.response.data.datail];
+          if (profileError.value) return;
+        }
+        profileError.value = "Ошибка при загрузке данных, попробуйте еще раз.";
+      }
 
+      try {
         const servicesResponce = await apiFetch<ServiceResponse>(
           "/entities/services"
         );
@@ -366,14 +379,17 @@ export default defineComponent({
 
         userScores.value = new UserScores(userScoresResponse.data);
       } catch (error) {
-        if (
-          error instanceof AxiosError &&
-          typeof error.response?.data?.datail === "string"
-        ) {
-          profileError.value = errors[error.response.data.datail];
-          if (profileError.value) return;
+        if (!services.value) {
+          services.value = [];
         }
-        profileError.value = "Ошибка при загрузке данных, попробуйте еще раз.";
+        if (!userScores.value) {
+          userScores.value = {
+            place: "-",
+            totalGained: "-",
+            totalLost: "-",
+            totalScore: "-",
+          };
+        }
       }
     }
 
