@@ -241,7 +241,11 @@
       <div class="mt-9 flex flex-col">
         <div class="heading-400">Services</div>
         <div v-if="services.length" class="grid grid-cols-2 mt-3 gap-4">
-          <ServiceItem v-for="item in services" :item="item" />
+          <ServiceItem
+            v-for="item in services"
+            :item="item"
+            :is-scenario="isScenario"
+          />
         </div>
         <div v-else>Список сервисов в данный момент отсутствует.</div>
       </div>
@@ -253,12 +257,13 @@
 </template>
 <script lang="ts">
 import { ServiceItem } from "@/components/profile";
-import { Service } from "~/types";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import Button from "primevue/button";
+import { useToast } from "primevue/usetoast";
 import { apiFetch, useAuthState } from "~/composables";
+import { Service } from "~/types";
 import { downloadHelper } from "~~/shared";
-
+import Toast from "primevue/toast";
 interface UserResponse {
   entity: UserDto;
 }
@@ -297,7 +302,7 @@ class User {
   }
 }
 
-type ServiceResponse = { services: Service[] };
+type ServiceResponse = { services: Service[]; is_runned: boolean };
 
 const errors = {} as Record<string, any>;
 
@@ -334,6 +339,8 @@ export default defineComponent({
     const userScores = ref<UserScores | null>(null);
     const authState = useAuthState();
     const isLoadingConfigButton = ref(false);
+    const isScenario = ref(false);
+
     onMounted(async () => {
       await getUser();
     });
@@ -370,6 +377,8 @@ export default defineComponent({
           status: `${item.status}`,
         }));
 
+        isScenario.value = servicesResponce.data.is_runned;
+
         const userScoresResponse = await apiFetch<UserScoresDto>(
           "/scores/user",
           {
@@ -392,17 +401,28 @@ export default defineComponent({
         }
       }
     }
+    const toast = useToast();
 
     async function downloadConfig() {
       isLoadingConfigButton.value = true;
-      const res = await axios("https://httpbin.org/encoding/utf8", {
-        responseType: "blob",
-      });
-      downloadHelper({ res, fileName: "vpnconfig.ovpn" });
+      try {
+        const res = await apiFetch("/entities/vpn/config", {
+          responseType: "blob",
+        });
+        downloadHelper({ res, fileName: "vpnconfig.ovpn" });
+      } catch (error) {
+        toast.add({
+          severity: "error",
+          summary: "Ошибка при запросе!",
+          detail: "Ошибка при скачивании VPN конфига",
+          life: 5000,
+        });
+      }
       isLoadingConfigButton.value = false;
     }
 
     return {
+      isScenario,
       isShowVpnConfig,
       user,
       profileError,

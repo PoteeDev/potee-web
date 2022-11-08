@@ -1,5 +1,8 @@
 <template>
   <div v-if="!scoreboardError" class="flex flex-col gap-5 mt-12">
+    <div v-if="!scoreboard" class="text-center">
+      Рейтинговый список в данный момент отсутствует
+    </div>
     <div
       v-for="item in scoreboard"
       class="grid grid-cols-[100px_min-content_1fr] gap-5 items-start"
@@ -165,6 +168,7 @@ export default defineComponent({
   setup() {
     const scoreboard = ref<ScoreboardResponse["scoreboard"]>([]);
     const scoreboardError = ref<string>("");
+
     onMounted(async () => {
       await getScoreboard();
     });
@@ -182,6 +186,7 @@ export default defineComponent({
           typeof error.response?.data?.datail === "string"
         ) {
           scoreboardError.value = errors[error.response.data.datail];
+
           if (scoreboardError.value) return;
         }
         scoreboardError.value =

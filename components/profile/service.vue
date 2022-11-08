@@ -10,10 +10,10 @@
       />
     </div>
 
-    <div class="body-400 text-[#B0B0B0] mt-1">
+    <div class="body-500 text-[#B0B0B0] mt-1">
       {{ item?.description }}
     </div>
-    <div class="text-[#B0B0B0] flex gap-6 items-center mt-2">
+    <div v-if="isScenario" class="text-[#B0B0B0] flex gap-6 items-center mt-2">
       <div class="flex gap-1.5 items-center mt-1 text-[#0FBF00]">
         <svg
           width="15"
@@ -124,8 +124,6 @@
         {{ item?.sla.toFixed(2) }}%
       </div>
     </div>
-
-    <div class="w-full h-[1px] bg-[#1B1B1B] mt-3"></div>
   </div>
 </template>
 <script lang="ts">
@@ -137,6 +135,7 @@ export default defineComponent({
   name: "Service",
   props: {
     item: {} as PropType<Service>,
+    isScenario: Boolean,
   },
   setup(props) {
     return {
