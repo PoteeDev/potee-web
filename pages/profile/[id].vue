@@ -4,7 +4,7 @@
     class="grid grid-cols-[minmax(180px,_230px)_minmax(900px,_1fr)] gap-8 mt-16"
   >
     <aside class="flex flex-col items-center">
-      <img src="/somelogo.png" :alt="`${user.name}`" />
+      <div id="identiconPlaceholder" />
 
       <div class="mt-5 heading-500 !leading-6">{{ user.name }}</div>
       <div class="body-500 text-[#B0B0B0]">@{{ user.login }}</div>
@@ -263,7 +263,8 @@ import { useToast } from "primevue/usetoast";
 import { apiFetch, useAuthState } from "~/composables";
 import { Service } from "~/types";
 import { downloadHelper } from "~~/shared";
-import Toast from "primevue/toast";
+import { toSvg } from "jdenticon";
+
 interface UserResponse {
   entity: UserDto;
 }
@@ -343,6 +344,11 @@ export default defineComponent({
 
     onMounted(async () => {
       await getUser();
+
+      let placeholder = document.getElementById("identiconPlaceholder");
+      if (placeholder) {
+        placeholder.innerHTML = toSvg(user.value?.login, 200);
+      }
     });
 
     const isShowVpnConfig = computed(
