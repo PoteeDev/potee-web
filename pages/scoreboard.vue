@@ -1,9 +1,12 @@
 <template>
   <div v-if="!scoreboardError" class="flex flex-col gap-5 mt-12">
-    <div v-if="!scoreboard" class="text-center">
+    <div v-if="!scoreboard.length" class="text-center">
       Рейтинговый список в данный момент отсутствует
     </div>
-    <div class="grid grid-cols-[100px_250px_1fr_190px] gap-5 items-center">
+    <div
+      v-if="scoreboard?.length"
+      class="grid grid-cols-[100px_250px_1fr_190px] gap-5 items-center"
+    >
       <div></div>
       <div class="place-self-start body-700-true">Name</div>
       <div class="place-self-start body-700-true">Services</div>
@@ -211,7 +214,7 @@ export default defineComponent({
           "/scores/scoreboard"
         );
 
-        scoreboard.value = responseScoreboard.data.scoreboard;
+        scoreboard.value = [];
       } catch (error) {
         if (
           error instanceof AxiosError &&
