@@ -211,10 +211,7 @@ export default defineComponent({
           "/scores/scoreboard"
         );
 
-        scoreboard.value = [
-          ...responseScoreboard.data.scoreboard,
-          { ...responseScoreboard.data.scoreboard[0], place: 3 },
-        ];
+        scoreboard.value = responseScoreboard.data.scoreboard;
       } catch (error) {
         if (
           error instanceof AxiosError &&
