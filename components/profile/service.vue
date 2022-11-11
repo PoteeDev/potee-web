@@ -1,7 +1,7 @@
 <template>
   <div class="flex w-full flex-col p-5 rounded-lg bg-[#282828]">
     <div class="flex w-full items-center gap-2">
-      <div class="heading-300">{{ item?.name }}</div>
+      <div class="heading-300">{{ item.name }}</div>
       <div
         :class="[
           'w-2.5 h-2.5 rounded-full',
@@ -11,7 +11,7 @@
     </div>
 
     <div class="body-500 text-[#B0B0B0] mt-1">
-      {{ item?.description }}
+      {{ item.description }}
     </div>
     <div v-if="isScenario" class="text-[#B0B0B0] flex gap-6 items-center mt-2">
       <div class="flex gap-1.5 items-center mt-1 text-[#0FBF00]">
@@ -44,7 +44,7 @@
             fill="#0FBF00"
           />
         </svg>
-        {{ item?.reputation }}
+        {{ item.reputation }}
       </div>
 
       <div class="flex gap-1 items-center">
@@ -70,7 +70,7 @@
             stroke-linecap="round"
           />
         </svg>
-        {{ item?.gained }}
+        {{ item.gained }}
       </div>
 
       <div class="flex gap-1 items-center">
@@ -103,7 +103,7 @@
           />
         </svg>
 
-        {{ item?.lost }}
+        {{ item.lost }}
       </div>
 
       <div class="flex gap-1 items-center">
@@ -121,7 +121,7 @@
             fill="#B0B0B0"
           />
         </svg>
-        {{ item?.sla.toFixed(2) }}%
+        {{ (item.sla * 100).toFixed(2) }}%
       </div>
     </div>
   </div>
@@ -134,7 +134,10 @@ import { serviceClassByStatus } from "~/shared";
 export default defineComponent({
   name: "Service",
   props: {
-    item: {} as PropType<Service>,
+    item: {
+      type: Object as PropType<Service>,
+      required: true,
+    },
     isScenario: Boolean,
   },
   setup(props) {

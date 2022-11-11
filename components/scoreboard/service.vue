@@ -120,7 +120,7 @@
           />
         </svg>
 
-        {{ item.sla.toFixed(2) }}%
+        {{ (item.sla * 100).toFixed(2) }}%
       </div>
     </div>
   </div>
