@@ -21,7 +21,7 @@
         v-if="item.place > 3"
         class="place-self-center heading-800 w-min rounded-lg"
       >
-        {{ item.place }}
+        {{ item.name }}
       </div>
       <div class="place-self-center" v-if="item.place <= 3">
         <svg
@@ -68,7 +68,11 @@
       </div>
 
       <div class="gap-2 flex h-full items-start rounded-lg overflow-auto">
-        <ServiceScoreboardItem v-for="service of item.srv" :item="service" />
+        <ServiceScoreboardItem
+          v-for="(service, key) of item.srv"
+          :item="service"
+          :name="key"
+        />
       </div>
       <div
         class="flex justify-center flex-col gap-3 items-center h-full bg-gradient-to-r from-[#1ecbffb3] to-[#ff35ebab] py-4 px-4 rounded-lg"
@@ -178,6 +182,7 @@ interface ScoreboardResponse {
 
 interface ScoreboardItem {
   id: string;
+  name: string;
   srv: Record<string, Service>;
   total_score: number;
   total_gained: number;
