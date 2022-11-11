@@ -6,7 +6,7 @@
     <aside class="flex flex-col items-center">
       <div id="identiconPlaceholder" />
 
-      <div class="mt-5 heading-500 !leading-6">{{ user.name }}</div>
+      <div class="mt-5 heading-500 !leading-6 text-center">{{ user.name }}</div>
       <div class="body-500 text-[#B0B0B0]">@{{ user.login }}</div>
     </aside>
     <main>
