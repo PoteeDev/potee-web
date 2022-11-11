@@ -170,7 +170,7 @@
             </defs>
           </svg>
           <div class="body-700-true mt-3">{{ userScores.totalGained }}</div>
-          <div class="body-500 text-[#B0B0B0] mt-[1px]">Total score</div>
+          <div class="body-500 text-[#B0B0B0] mt-[1px]">Total Gained</div>
         </div>
         <div class="flex flex-col items-center rounded-lg bg-[#282828] py-5">
           <svg
@@ -238,7 +238,7 @@
             </defs>
           </svg>
           <div class="body-700-true mt-3">{{ userScores.totalLost }}</div>
-          <div class="body-500 text-[#B0B0B0] mt-[1px]">Total score</div>
+          <div class="body-500 text-[#B0B0B0] mt-[1px]">Total Lost</div>
         </div>
       </div>
 

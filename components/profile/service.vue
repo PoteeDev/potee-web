@@ -3,6 +3,7 @@
     <div class="flex w-full items-center gap-2">
       <div class="heading-300">{{ item.name }}</div>
       <div
+        v-if="isScenario"
         :class="[
           'w-2.5 h-2.5 rounded-full',
           item && serviceClassByStatus[item.status],
