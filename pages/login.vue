@@ -67,8 +67,7 @@ import { FetchError } from "ohmyfetch";
 import { AxiosError } from "axios";
 
 const errors = {
-  "invalid credentials":
-    "Такого пользователя не существует или данные не верны",
+  "invalid credentials": "This user does not exist or the data is invalid",
 } as Record<string, any>;
 
 definePageMeta({
@@ -103,9 +102,9 @@ export default defineComponent({
           typeof error.response?.data?.datail === "string"
         ) {
           loginError.value = errors[error.response.data.datail];
-          if (loginError.value) return;
         }
-        loginError.value = "Ошибка при входе, попробуйте еще раз.";
+        !loginError.value &&
+          (loginError.value = "Login failed, please try again");
       }
 
       isLoadingLoginButton.value = false;
