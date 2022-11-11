@@ -1,12 +1,17 @@
 <template>
   <div
-    :class="[
-      'flex flex-col px-3 py-2 rounded-xl border-solid gap-2 h-full',
-      serviceClassByStatus[item.status],
-    ]"
+    class="flex justify-between px-3 py-4 bg-[#282828] flex-col rounded-xl border-solid gap-2 h-full"
   >
     <div class="flex justify-between">
-      <div class="body-500">{{ name }}</div>
+      <div class="body-500 flex gap-2 items-center">
+        {{ name }}
+        <div
+          :class="[
+            'w-2.5 h-2.5 rounded-full',
+            item && serviceClassByStatus[item.status],
+          ]"
+        />
+      </div>
       <div class="body-500 flex gap-1 items-center">
         <svg
           width="12"

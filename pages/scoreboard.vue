@@ -67,9 +67,7 @@
         </span>
       </div>
 
-      <div
-        class="gap-2 flex p-2 bg-[#282828] h-full items-start rounded-lg overflow-auto"
-      >
+      <div class="gap-2 flex h-full items-start rounded-lg overflow-auto">
         <ServiceScoreboardItem
           v-for="(service, key) of item.srv"
           :item="service"
@@ -77,7 +75,7 @@
         />
       </div>
       <div
-        class="flex flex-col gap-3 items-center h-full bg-gradient-to-r from-[#1ecbffb3] to-[#ff35ebab] py-4 px-4 rounded-lg"
+        class="flex justify-center flex-col gap-3 items-center h-full bg-gradient-to-r from-[#1ecbffb3] to-[#ff35ebab] py-4 px-4 rounded-lg"
       >
         <div class="flex gap-2 items-center body-500">
           <svg
@@ -95,7 +93,7 @@
             />
           </svg>
 
-          {{ item.total_score }}
+          {{ item.total_score.toFixed(2) }}
         </div>
 
         <div class="flex gap-4">
@@ -214,7 +212,7 @@ export default defineComponent({
           "/scores/scoreboard"
         );
 
-        scoreboard.value = responseScoreboard.data.scoreboard;
+        scoreboard.value = responseScoreboard.data.scoreboard || [];
       } catch (error) {
         if (
           error instanceof AxiosError &&

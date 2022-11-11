@@ -101,7 +101,13 @@
               </linearGradient>
             </defs>
           </svg>
-          <div class="body-700-true mt-3">{{ userScores.totalScore }}</div>
+          <div class="body-700-true mt-3">
+            {{
+              typeof userScores.totalScore === "number"
+                ? userScores.totalScore.toFixed(2)
+                : userScores.totalScore
+            }}
+          </div>
           <div class="body-500 text-[#B0B0B0] mt-[1px]">Total score</div>
         </div>
         <div class="flex flex-col items-center rounded-lg bg-[#282828] py-5">
@@ -352,7 +358,7 @@ export default defineComponent({
     });
 
     const isShowVpnConfig = computed(
-      () => user.value?.name === authState.user?.id
+      () => user.value?.login === authState.user?.id
     );
 
     async function getUser() {
