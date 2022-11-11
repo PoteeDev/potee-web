@@ -68,11 +68,7 @@
       </div>
 
       <div class="gap-2 flex h-full items-start rounded-lg overflow-auto">
-        <ServiceScoreboardItem
-          v-for="(service, key) of item.srv"
-          :item="service"
-          :name="key"
-        />
+        <ServiceScoreboardItem v-for="service of item.srv" :item="service" />
       </div>
       <div
         class="flex justify-center flex-col gap-3 items-center h-full bg-gradient-to-r from-[#1ecbffb3] to-[#ff35ebab] py-4 px-4 rounded-lg"

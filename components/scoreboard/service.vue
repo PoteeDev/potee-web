@@ -4,7 +4,7 @@
   >
     <div class="flex justify-between">
       <div class="body-500 flex gap-2 items-center">
-        {{ name }}
+        {{ item.name }}
         <div
           :class="[
             'w-2.5 h-2.5 rounded-full',
@@ -133,7 +133,6 @@ import { serviceClassByStatus } from "~/shared";
 export default defineComponent({
   name: "Service",
   props: {
-    name: String,
     item: {
       type: Object as PropType<Service>,
       required: true,
