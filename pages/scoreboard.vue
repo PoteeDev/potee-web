@@ -21,7 +21,7 @@
         v-if="item.place > 3"
         class="place-self-center heading-800 w-min rounded-lg"
       >
-        {{ item.id }}
+        {{ item.place }}
       </div>
       <div class="place-self-center" v-if="item.place <= 3">
         <svg
