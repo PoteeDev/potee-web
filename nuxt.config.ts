@@ -22,15 +22,11 @@ export default defineNuxtConfig({
   build: {
     transpile: ["primevue"],
   },
-  vite: {
-    server: {
-      proxy: {
-        "/api": {
-          target: "http://localhost/api/v1",
-          changeOrigin: true,
-          secure: false,
-          rewrite: (path) => path.replace(/^\/api/, ""),
-        },
+  nitro: {
+    devProxy: {
+      "/api": {
+        target: "http://localhost/api/v1",
+        changeOrigin: true,
       },
     },
   },
