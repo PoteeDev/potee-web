@@ -21,7 +21,7 @@
         v-if="item.place > 3"
         class="place-self-center heading-800 w-min rounded-lg"
       >
-        {{ item.name }}
+        {{ item.id }}
       </div>
       <div class="place-self-center" v-if="item.place <= 3">
         <svg
@@ -60,10 +60,10 @@
       </div>
       <div
         class="flex gap-4 bg-[#282828] p-4 rounded-lg h-full items-center"
-        v-tooltip.top="item.id"
+        v-tooltip.top="item.name"
       >
         <span class="heading-400 text-ellipsis overflow-hidden">
-          {{ item.id }}
+          {{ item.name }}
         </span>
       </div>
 
